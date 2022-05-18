@@ -4,7 +4,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 7rem;
 }
 
@@ -52,6 +52,10 @@ body {
 .casella:nth-child(8),
 .casella:nth-child(7) {
   border-bottom: none;
+}
+
+.no-click {
+  pointer-events: none;
 }
 
 .modale-fine-partita {
