@@ -109,9 +109,16 @@ button {
   padding: 8px 12px;
 }
 
-button:hover {
-  background-color: #fff;
-  color: #000;
+@media (hover: hover) {
+  button:hover {
+    background-color: #fff;
+    color: #000;
+  }
+  .casella:hover::after {
+    content: "Here";
+    font-size: 2rem;
+    opacity: .25;
+  }
 }
 
 .resetta-punteggio {

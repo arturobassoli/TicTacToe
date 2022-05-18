@@ -85,7 +85,7 @@ function controllaVincitore() {
 
     if (controllaVittoria) {
       modale.classList.remove("display-none");
-      risultato.innerHTML += "Ha vinto " + "<b>" + giocatore + "</b>";
+      risultato.innerHTML += "<b>" + giocatore + "</b> won 🎉";
 
       console.log(giocatore);
 
@@ -99,7 +99,7 @@ function controllaVincitore() {
 
   if (giocata == 9 && !fine) {
     modale.classList.remove("display-none");
-    risultato.innerHTML += "Pareggio";
+    risultato.innerHTML += "<b>Tie</b> 👔";
   }
 }
 
