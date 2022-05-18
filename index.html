@@ -20,7 +20,6 @@
     <title>Tic Tac Toe</title>
   </head>
   <body>
-
     <!-- Turno -->
     <div class="turno-x">Tocca a <b>X</b></div>
     <div class="turno-o display-none">Tocca a <b>O</b></div>
@@ -42,12 +41,16 @@
     <div class="modale-fine-partita display-none">
       <div>
         <div class="risultato"></div>
-        <a class="ricomincia" href="index.html">Ricomincia</a>
+        <button class="ricomincia">Ricomincia</button>
       </div>
     </div>
 
     <!-- Div vuoto per flex center -->
-    <div></div>
+    <div class="punteggio">
+      <span>Punteggio</span><span><b>X</b> : <span class="punti-x"></span></span
+      ><span><b>O</b> : <span class="punti-o"></span></span>
+      <button class="resetta-punteggio">Resetta punteggio</button>
+    </div>
 
     <!-- Script -->
     <script src="tris.js"></script>

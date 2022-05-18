@@ -1,9 +1,22 @@
 /* Turno */
 let giocatore = "X";
 let giocata = 1;
+let fine = false;
 
 /* Valore caselle */
-const campo = [];
+let campo = [];
+
+/* Condizioni di vittoria */
+const vittoria = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+];
 
 /* Identifica le caselle */
 const casella = document.querySelectorAll(".casella");
@@ -13,8 +26,18 @@ const turnoX = document.querySelector(".turno-x");
 const turnoO = document.querySelector(".turno-o");
 
 /* Identifica la modalle di fine partita */
-const modale = document.querySelector(".modale-fine-partita"); 
-const risultato = document.querySelector(".risultato");
+const modale = document.querySelector(".modale-fine-partita");
+const risultato = modale.querySelector(".risultato");
+const ricomincia = modale.querySelector(".ricomincia");
+
+/* Identifica punteggio partite */
+let puntiX = document.querySelector(".punti-x");
+let puntiO = document.querySelector(".punti-o");
+puntiX.innerHTML = 0;
+puntiO.innerHTML = 0;
+
+/* Resetta punteggio */
+let resettaPunteggio = document.querySelector(".resetta-punteggio");
 
 casella.forEach((element) => {
   element.addEventListener("click", segnaMossa);
@@ -22,12 +45,14 @@ casella.forEach((element) => {
   /* Stampa il segno e blocca il click */
   function segnaMossa() {
     element.innerHTML += giocatore;
-    element.className += " no-click";
+    element.classList.add("no-click");
 
     campo[element.id] = giocatore;
 
     turno();
-    controllaVincitore();
+    if (giocata > 4) {
+      controllaVincitore();
+    }
     cambiaGiocatore();
 
     ++giocata;
@@ -36,14 +61,7 @@ casella.forEach((element) => {
 
 /* Cambia turno */
 function cambiaGiocatore() {
-  if (giocatore == "X") {
-    giocatore = "O";
-    return;
-  }
-  if (giocatore == "O") {
-    giocatore = "X";
-    return;
-  }
+  giocatore == "X" ? (giocatore = "O") : (giocatore = "X");
 }
 
 /* Stampa a chi tocca */
@@ -60,20 +78,56 @@ function turno() {
 
 /* Controlla se qualcuno ha vinto */
 function controllaVincitore() {
-  if (
-    (campo[0] == campo[1] && campo[0] == campo[2] && campo[0] == giocatore) ||
-    (campo[3] == campo[4] && campo[3] == campo[5] && campo[3] == giocatore) ||
-    (campo[6] == campo[7] && campo[6] == campo[8] && campo[6] == giocatore) ||
-    (campo[0] == campo[3] && campo[0] == campo[6] && campo[0] == giocatore) ||
-    (campo[1] == campo[4] && campo[1] == campo[7] && campo[1] == giocatore) ||
-    (campo[2] == campo[5] && campo[2] == campo[8] && campo[2] == giocatore) ||
-    (campo[0] == campo[4] && campo[0] == campo[8] && campo[0] == giocatore) ||
-    (campo[2] == campo[4] && campo[2] == campo[6] && campo[2] == giocatore)
-  ) {
-    modale.classList.remove("display-none");
-    risultato.innerHTML += "Ha vinto " + "<b>" + giocatore + "</b>";
-  } else if (giocata == 9) {
+  let controllaVittoria;
+
+  vittoria.forEach((condizione) => {
+    controllaVittoria = condizione.every((i) => campo[i] == giocatore);
+
+    if (controllaVittoria) {
+      modale.classList.remove("display-none");
+      risultato.innerHTML += "Ha vinto " + "<b>" + giocatore + "</b>";
+
+      console.log(giocatore);
+
+      giocatore == "X"
+        ? ++puntiX.innerHTML + console.log(giocatore)
+        : ++puntiO.innerHTML + console.log(giocatore);
+
+      fine = true;
+    }
+  });
+
+  if (giocata == 9 && !fine) {
     modale.classList.remove("display-none");
     risultato.innerHTML += "Pareggio";
   }
+}
+
+/* Resetta tutto al click */
+ricomincia.addEventListener("click", ricominciaPartita);
+
+function ricominciaPartita() {
+  casella.forEach((element) => {
+    element.innerHTML = "";
+    element.classList.remove("no-click");
+  });
+
+  modale.classList.add("display-none");
+  risultato.innerHTML = "";
+
+  turnoX.classList.remove("display-none");
+  turnoO.classList.add("display-none");
+
+  giocatore = "X";
+  giocata = 1;
+  fine = false;
+  campo = [];
+}
+
+/* Resetta punteggio */
+resettaPunteggio.addEventListener("click", resettaPunteggioPartite);
+
+function resettaPunteggioPartite() {
+  puntiX.innerHTML = 0;
+  puntiO.innerHTML = 0;
 }
