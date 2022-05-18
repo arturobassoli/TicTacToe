@@ -1,13 +1,25 @@
 /* Turno */
 let giocatore = "X";
+let giocata = 1;
 
 /* Valore caselle */
 const campo = [];
 
+/* Identifica le caselle */
 const casella = document.querySelectorAll(".casella");
+
+/* Identifica il div del turno */
+const turnoX = document.querySelector(".turno-x");
+const turnoO = document.querySelector(".turno-o");
+
+/* Identifica la modalle di fine partita */
+const modale = document.querySelector(".modale-fine-partita");
+const risultato = document.querySelector(".risultato");
+
 casella.forEach((element) => {
   element.addEventListener("click", segnaMossa);
 
+  /* Stampa il segno e blocca il click */
   function segnaMossa() {
     element.innerHTML += giocatore;
     element.className += " no-click";
@@ -17,9 +29,12 @@ casella.forEach((element) => {
     turno();
     controllaVincitore();
     cambiaGiocatore();
+
+    ++giocata;
   }
 });
 
+/* Cambia turno */
 function cambiaGiocatore() {
   if (giocatore == "X") {
     giocatore = "O";
@@ -31,9 +46,7 @@ function cambiaGiocatore() {
   }
 }
 
-const turnoX = document.querySelector(".turno-x");
-const turnoO = document.querySelector(".turno-o");
-
+/* Stampa a chi tocca */
 function turno() {
   if (giocatore == "X") {
     turnoX.classList.add("display-none");
@@ -45,9 +58,7 @@ function turno() {
   }
 }
 
-const risultato = document.querySelector(".risultato");
-const modale = document.querySelector(".modale-fine-partita");
-
+/* Controlla se qualcuno ha vinto */
 function controllaVincitore() {
   if (
     (campo[0] == campo[1] && campo[0] == campo[2] && campo[0] == giocatore) ||
@@ -60,6 +71,9 @@ function controllaVincitore() {
     (campo[2] == campo[4] && campo[2] == campo[6] && campo[2] == giocatore)
   ) {
     modale.classList.remove("display-none");
-    risultato.innerHTML += "Ha vinto " + giocatore;
+    risultato.innerHTML += "Ha vinto " + "<b>" + giocatore + "</b>";
+  } else if (giocata == 9) {
+    modale.classList.remove("display-none");
+    risultato.innerHTML += "Pareggio";
   }
 }
