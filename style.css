@@ -61,5 +61,29 @@ body {
 }
 
 .display-none {
-  display: none;
+  display: none !important;
+}
+
+.modale-fine-partita {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.risultato {
+  margin-bottom: 12px;
+}
+
+.ricomincia {
+  background-color: transparent;
+  border: 3px solid #fff;
+  border-radius: 0;
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 12px;
 }

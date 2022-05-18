@@ -2,7 +2,7 @@
 let giocatore = "X";
 
 /* Valore caselle */
-const campo = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+const campo = [];
 
 const casella = document.querySelectorAll(".casella");
 casella.forEach((element) => {
@@ -21,7 +21,7 @@ casella.forEach((element) => {
 });
 
 function cambiaGiocatore() {
-    if (giocatore == "X") {
+  if (giocatore == "X") {
     giocatore = "O";
     return;
   }
@@ -46,6 +46,7 @@ function turno() {
 }
 
 const risultato = document.querySelector(".risultato");
+const modale = document.querySelector(".modale-fine-partita");
 
 function controllaVincitore() {
   if (
@@ -58,6 +59,7 @@ function controllaVincitore() {
     (campo[0] == campo[4] && campo[0] == campo[8] && campo[0] == giocatore) ||
     (campo[2] == campo[4] && campo[2] == campo[6] && campo[2] == giocatore)
   ) {
-    risultato.innerHTML += "ha vinto " + giocatore;
+    modale.classList.remove("display-none");
+    risultato.innerHTML += "Ha vinto " + giocatore;
   }
 }
