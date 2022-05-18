@@ -13,7 +13,7 @@ const turnoX = document.querySelector(".turno-x");
 const turnoO = document.querySelector(".turno-o");
 
 /* Identifica la modalle di fine partita */
-const modale = document.querySelector(".modale-fine-partita");
+const modale = document.querySelector(".modale-fine-partita"); 
 const risultato = document.querySelector(".risultato");
 
 casella.forEach((element) => {
